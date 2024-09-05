@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<main class="container-fluid">
+    <div class="row">
+        <!-- Main Content (Meep Feed) -->
+        <div class="col-md-6 custom-scrollbar" id="feed-container" style="overflow-y: auto; height: 100vh;">
+            {% if user.is_authenticated %}
+                {% include '_meep_form.html' %}
+            {% else %}
+                <p class="text-muted">Please log in to post a Meep.</p>
+            {% endif %}
+
+            <h1 class="mb-4">For You</h1>
+            <ul class="list-group" id="meep-list" aria-label="Meep list">
+                {% for meep in meeps %}
+                    <li class="list-group-item">
+                        {% include '_meep_card.html' with meep=meep only %}
+                    </li>
+                {% endfor %}
+            </ul>
+            <div id="loading-spinner" class="text-center" style="display: none;" aria-label="Loading spinner">
+                <p>Loading more...</p>
+            </div>
+        </div>
+
+        <!-- Right Sidebar (Trending Topics/Search) -->
+       <!-- Right Sidebar (Trending Topics/Search/Advertisements) -->
+        <aside class="col-md-4 bg-light" style="height: 100vh;">
+            <h3>Trending Topics</h3>
+            {% include 'trending_topics.html' %}
+
+            <!-- Advertisement Section -->
+            {% if ad %}
+            <div class="advertisement mt-4">
+                <a href="{% url 'track_ad_click' ad.id %}" target="_blank">
+                    <img src="{{ ad.image.url }}" alt="{{ ad.title }}" class="img-fluid">
+                </a>
+            </div>
+            {% endif %}
+        </aside>
+
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/vendor/popper.min.js' %}"></script>
+<script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/live_search.js' %}"></script>
+<script src="{% static 'js/like_meep.js' %}"></script>
+<script src="{% static 'js/notifications.js' %}"></script>
+<script src="{% static 'js/meep_feed.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,8 @@
+<div class="trending-hashtags">
+    <h4>Trending Hashtags</h4>
+    <ul>
+        {% for hashtag in trending_hashtags %}
+        <li><a href="{% url 'hashtag_detail' hashtag.name %}">#{{ hashtag.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>

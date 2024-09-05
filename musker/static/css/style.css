@@ -1,0 +1,1274 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f5f8fa;
+    color: #14171a;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-weight: bold;
+    color: #14171a;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #657786;
+}
+
+/* Link Styles */
+a {
+    color: #1da1f2;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #1da1f2;
+    color: white;
+    border-radius: 20px;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0c83d1;
+}
+
+/* Form Styles */
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e1e8ed;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #14171a;
+    background-color: #ffffff;
+}
+
+textarea::placeholder {
+    color: #657786;
+}
+
+/* Card Styles */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #e1e8ed;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon Styles */
+.icon-bar i {
+    color: #657786;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    transition: color 0.3s ease;
+}
+
+.icon-bar i:hover {
+    color: #1da1f2;
+}
+/* Meep Card */
+.meep-card {
+    margin-bottom: 20px;
+    padding: 20px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.meep-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.meep-card .meep-content {
+    margin-left: 60px;
+    padding-left: 15px;
+}
+
+.meep-card .meep-image {
+    float: left;
+    margin-right: 15px;
+}
+
+.meep-card .meep-image img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image doesn't stretch */
+    border: 2px solid #1da1f2; /* Optional: Add a border around the image */
+}
+
+
+/* Meep Creation Form */
+.meep-form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+}
+
+/* Fixed Size Text Area */
+.fixed-textarea {
+    resize: none;
+    height: 80px;
+    background-color: #f5f8fa;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    color: #14171a;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fixed-textarea:focus {
+    border-color: #1da1f2;
+    box-shadow: 0 0 8px rgba(29, 161, 242, 0.2);
+}
+
+/* Icon Bar */
+.icon-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-bar i {
+    font-size: 1.4rem;
+    color: #657786;
+    transition: color 0.3s ease;
+}
+
+.icon-bar i:hover {
+    color: #1da1f2;
+}
+
+/* Post Button */
+.btn-post {
+    background-color: #1da1f2;
+    color: white;
+    border-radius: 25px;
+    padding: 8px 20px;
+    font-size: 1rem;
+    border: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-post:hover {
+    background-color: #0c83d1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 0;
+}
+
+/* Overall Form Layout */
+.d-flex {
+    align-items: center;
+}
+
+/* Sidebar Navigation Styling */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #1d1f23;
+    z-index: 1000;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.navbar .navbar-brand {
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.navbar-nav .nav-link {
+    color: #fff;
+    padding: 15px 20px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav .nav-link i {
+    margin-right: 15px;
+    font-size: 22px;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: #2a2d31;
+    color: #1da1f2;
+}
+
+/* Follow Button & Primary Button */
+.btn-primary {
+    background-color: #1da1f2;
+    border-color: #1da1f2;
+    border-radius: 30px;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover {
+    background-color: #1991e6;
+}
+
+.rounded-circle {
+    border: 2px solid #1da1f2;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+/* Adjust main content to make room for sidebar */
+.container-fluid {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+/* Button Sizes for Follow/Unfollow and Profile Buttons */
+.btn-follow, .btn-small {
+    width: 300px;
+    height: 30px;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .navbar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .container-fluid {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    /* Adjust containers for mobile */
+    .col-md-6, .col-md-4, .col-md-2 {
+        width: 100%;
+        padding: 0;
+    }
+
+    /* Adjust card sizes for mobile */
+    .card {
+        margin: 0.5rem 0;
+    }
+
+    /* Adjust text sizes for mobile */
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    p, .nav-link {
+        font-size: 0.9rem;
+    }
+
+    /* Adjusting profile images for mobile */
+    .rounded-circle {
+        width: 40px;
+        height: 40px;
+    }
+
+    .icon-bar i {
+        font-size: 1.2rem;
+    }
+
+    /* Sidebar hide for small screens */
+    .col-md-2, .col-md-4 {
+        display: none;
+    }
+
+    /* Full width for main content */
+    .col-md-6 {
+        width: 100%;
+    }
+
+    /* Adjust textarea size for mobile */
+    textarea.sleek-textarea {
+        font-size: 1rem;
+    }
+
+   /* Meep Form Image */
+.meep-form .meep-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px; /* Optional: for rounded corners */
+}
+
+/* Meep Card Content */
+.meep-card .meep-content {
+    margin-left: 0;
+    padding-left: 0;
+    text-align: left;
+}
+
+/* Meep Feed Image */
+.meep-card .meep-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+    border-radius: 10px; /* Optional: for rounded corners */
+}
+
+/* Ensuring responsiveness within feed cards */
+.meep-card {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%; /* Ensure it takes the full width of the container */
+}
+
+
+    /* Bottom Navigation for smaller screens */
+    #sidebar {
+        display: none;
+    }
+
+    .bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #343a40;
+        padding: 10px 0;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .bottom-nav a {
+        color: white;
+        text-align: center;
+        font-size: 18px;
+        text-decoration: none;
+    }
+
+    .bottom-nav a:hover {
+        color: #f8f9fa;
+    }
+
+    .bottom-nav i {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .content {
+        padding-bottom: 60px;
+    }
+}
+
+/* Profile Page Styling */
+.profile-page .profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f5f8fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-page .profile-image {
+    flex-shrink: 0;
+    margin-right: 20px;
+}
+
+.profile-page .profile-image img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border: 3px solid #1da1f2;
+}
+
+.profile-page .profile-details {
+    flex-grow: 1;
+}
+
+.profile-page .profile-details h1 {
+    margin-bottom: 10px;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #14171a;
+}
+
+.profile-page .profile-details p {
+    color: #657786;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.profile-page .social-links a {
+    color: #1da1f2;
+    margin-right: 15px;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+}
+
+.profile-page .social-links a:hover {
+    text-decoration: underline;
+    color: #0c83d1;
+}
+
+/* Follow/Unfollow Button Styling */
+.btn-follow {
+    background-color: #ffffff;
+    color: #1da1f2;
+    border: 1px solid #1da1f2;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-follow:hover {
+    background-color: #1da1f2;
+    color: #ffffff;
+}
+
+/* Update Profile and Change Password Button Styling */
+.btn-small {
+    padding: 5px 15px;
+    font-size: 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    background-color: #1da1f2;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-small:hover {
+    background-color: #0c83d1;
+}
+
+/* Additional Styling for Profile Page */
+.profile-page .follows-followers-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.profile-page .card {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .profile-page .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-page .profile-image {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .profile-page .social-links {
+        margin-top: 10px;
+    }
+
+    .follows-followers-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-page .profile-image img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-page .profile-details h1 {
+        font-size: 1.5rem;
+    }
+
+    .profile-page .profile-details p {
+        font-size: 0.9rem;
+    }
+
+    .profile-page .social-links a {
+        font-size: 1rem;
+        margin-right: 10px;
+    }
+}
+
+/* Scrollbar Styling for Meeps Section */
+.meeps-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.meeps-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.meeps-container::-webkit-scrollbar-track {
+    background-color: #1c1c1c;
+}
+
+.meeps-container {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) #1c1c1c;
+}
+
+/* Dark Theme Colors */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+a.dark-mode {
+    color: #1da1f2;
+}
+
+a.dark-mode:hover {
+    color: #1991e6;
+}
+
+button.dark-mode {
+    background-color: #333333;
+    color: white;
+    border: 1px solid #2C2C2C;
+}
+
+button.dark-mode:hover {
+    background-color: #444444;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Borders and Dividers */
+hr.dark-mode, .card.dark-mode {
+    border-color: #2C2C2C;
+}
+
+/* Inputs */
+input.dark-mode, textarea.dark-mode {
+    background-color: #333333;
+    color: white;
+    border: 1px solid #2C2C2C;
+}
+
+/* Profile Image Shadow */
+.profile-image img {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Additional elements */
+.card.dark-mode {
+    background-color: #1E1E1E;
+    color: white;
+}
+
+.navbar.dark-mode {
+    background-color: #1d1f23;
+}
+
+/* Sidebar navigation for dark theme */
+.nav-link.dark-mode {
+    color: #e0e0e0;
+}
+
+.nav-link.dark-mode:hover {
+    color: #1da1f2;
+    background-color: #2a2d31;
+}
+
+/* Sidebar Navigation Toggle */
+#sidebar {
+    transition: transform 0.3s ease;
+}
+
+.d-none {
+    transform: translateX(-100%);
+}
+
+/* Reusable Styles */
+
+/* Custom Scrollbar Styling */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #4a4a4a, #6c6c6c);
+    border-radius: 50px;
+    box-shadow: 0 0 6px rgba(108, 108, 108, 0.5);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #6c6c6c, #8a8a8a);
+    transform: scale(1.1);
+}
+
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: linear-gradient(45deg, #4a4a4a, #6c6c6c) #ffffff;
+}
+
+/* Media Styling (Images and Videos) */
+.meep-card img,
+.meep-card video {
+    max-width: 40%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* Hide the file input fields */
+.hidden-input {
+    display: none;
+}
+
+/* Icon Bar Styling */
+.icon-bar i {
+    cursor: pointer;
+    margin-right: 15px;
+    font-size: 1.5rem;
+    color: #657786;
+    transition: color 0.3s ease;
+}
+
+.icon-bar i:hover {
+    color: #1da1f2;
+}
+/* Notifications Container */
+.notifications-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Notifications List */
+.notifications-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Notification Card */
+.notification-card {
+    margin-bottom: 15px;
+}
+
+.notification-card a {
+    display: block;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.notification-card a:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Notification Content */
+.notification-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-content p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.notification-content small {
+    font-size: 14px;
+    color: #999;
+}
+
+/* No Notifications Message */
+.no-notifications {
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+}
+
+/* Toast Notifications */
+.toast {
+    min-width: 250px;
+    padding: 15px;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    color: #fff;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.toast-success {
+    background-color: #28a745;
+}
+
+.toast-error {
+    background-color: #dc3545;
+}
+
+/* Spinner */
+.spinner {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border: 0.25rem solid rgba(0, 0, 0, 0.1);
+    border-top-color: #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Chat Container */
+.chat-container {
+    max-width: 600px;
+    margin: auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.chat-header {
+    background-color: #343a40;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.chat-messages {
+    height: 400px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    padding: 10px;
+}
+
+.chat-messages ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.chat-messages li {
+    margin-bottom: 10px;
+}
+
+.chat-messages .sent .message {
+    background-color: #d1ecf1;
+    text-align: right;
+}
+
+.chat-messages .received .message {
+    background-color: #f8d7da;
+}
+
+.chat-messages .message {
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 70%;
+}
+
+.chat-messages .timestamp {
+    display: block;
+    font-size: 0.8em;
+    color: #6c757d;
+}
+
+.chat-footer {
+    display: flex;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+.chat-footer input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+}
+
+.chat-footer button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.chat-footer button:hover {
+    background-color: #495057;
+}
+
+/* Inbox Container */
+/* Inbox Container */
+.inbox-container {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-bar input[type="text"] {
+    flex: 1; /* Take up available space */
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 16px;
+}
+
+.search-bar button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #0066cc;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #005bb5;
+}
+
+/* Conversation List */
+.conversation-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.conversation-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.conversation-item:hover {
+    background-color: #f0f0f0;
+}
+
+.conversation-item a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Profile Picture */
+.profile-picture {
+    margin-right: 15px;
+}
+
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Conversation Details */
+.conversation-details {
+    flex-grow: 1;
+}
+
+.conversation-details strong {
+    display: block;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.conversation-details small {
+    color: #999;
+}
+
+/* No Conversations Message */
+.no-conversations {
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+}
+
+/* Message Requests Styling */
+.message-requests {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.message-requests:hover {
+    background-color: #e0e0e0;
+}
+
+.message-requests .icon {
+    margin-right: 10px;
+}
+
+.message-requests .icon img {
+    width: 24px;
+    height: 24px;
+}
+
+.message-requests .text {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Conversation List Styling */
+.conversation-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.conversation-item a {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+}
+
+.conversation-item a:hover {
+    background-color: #f8f8f8;
+}
+
+.profile-picture img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.conversation-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.conversation-details strong {
+    font-size: 16px;
+    color: #333;
+}
+
+.conversation-details small {
+    font-size: 14px;
+    color: #999;
+    margin-top: 5px;
+}
+
+/* Chat Container Adjustments */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 93vh; /* Set the chat container to take up 50% of the viewport height */
+    width: 100%; /* Full width of the viewport */
+    max-width: 900px; /* Limit the max width on larger screens */
+    margin: 0 ; /* Center the chat container horizontally */
+    background-color: white; /* Set the background color to white */
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow for effect */
+    overflow: hidden; /* Ensure content doesn't overflow */
+}
+
+/* Chat Header */
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #333;
+}
+
+.chat-header .profile-picture img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.chat-header .chat-info {
+    margin-left: 10px;
+}
+
+/* Chat Messages */
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+}
+
+/* Individual Message Styling */
+.message {
+    max-width: 70%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sent Messages (User's own messages) */
+.message.sent {
+    align-self: flex-end;
+    background-color: #4e00cc; /* Blue background for sent messages */
+    color: white; /* Sets text color to white */
+    text-align: right; /* Right-align text */
+}
+
+/* Ensure that all text elements within the sent message are white */
+.message.sent p, 
+.message.sent small, 
+.message.sent span, 
+.message.sent a {
+    color: white; /* Ensures that all paragraph, small, span, and anchor elements inside .message.sent have white text */
+}
+/* Received Messages (Other users' messages) */
+.message.received {
+    align-self: flex-start;
+    background-color: #333; /* Dark background for received messages */
+    color: white;
+    text-align: left; /* Left-align text */
+}
+
+.message .message-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.message p {
+    margin: 0;
+}
+
+.message small {
+    align-self: flex-end;
+    font-size: 0.8em;
+    margin-top: 5px;
+    color: #ccc; /* Lighter color for timestamps */
+}
+
+/* Chat Input Container */
+.chat-input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-top: 1px solid #333;
+}
+
+/* Chat Input Textarea */
+#chat-message-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    background-color: #333;
+    color: white;
+    resize: none;
+}
+
+/* Send Button */
+#send-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: none;
+    background-color: #0066cc;
+    color: white;
+    cursor: pointer;
+}
+
+#send-button:hover {
+    background-color: #005bb5;
+}
+
+/* Chat Input Textarea Focus State */
+.chat-input-container textarea:focus {
+    outline: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .chat-container {
+        height: 86vh; /* Adjust height for mobile screens */
+        width: 100%; /* Ensure full width on smaller screens */
+    }
+
+    #chat-message-input {
+        font-size: 1rem; /* Adjust font size for mobile screens */
+    }
+}
+h1 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Twitter's standard font */
+    font-size: 1.5rem; /* Slightly smaller and more compact */
+    color: #14171A; /* Dark color similar to Twitter's heading color */
+    text-align: center; /* Align text to the left */
+    margin-bottom: 15px; /* Add space below the heading */
+    font-weight: bold; /* Twitter uses bold headings */
+
+    background-color: #f8f8f8; /* Light background for contrast */
+    padding: 15px 20px; /* Add padding around the text */
+    border-radius: 10px; /* Rounded corners for the background */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+/* Styling the search bar */
+#liveSearch {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+/* Styling the search results container */
+#searchResults {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Styling the section headings */
+#searchResults h4, .mt-4 h4 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* Styling the result lists */
+#searchResults ul, .list-group {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#searchResults ul li, .list-group-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* Styling links for users and hashtags */
+#searchResults ul li a, .list-group-item a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+#searchResults ul li a:hover, .list-group-item a:hover {
+    text-decoration: underline;
+}
+
+/* Style for empty search results */
+#searchResults p {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Styling badges */
+.badge {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 12px;
+}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <h1>Search Meeps!</h1>
+    <br/>
+
+    <!-- Search Form -->
+    <form method="POST" class="mb-4">
+        {% csrf_token %}
+        <input type="input" class="form-control" placeholder="Search Meeps" name="search" aria-label="Search Meeps">
+        <br/>
+        <button type="submit" class="btn btn-secondary">Search Meep!</button>
+    </form>
+
+    {% if search %}
+        <h3>You Searched For: "{{ search }}"</h3>
+        <br/>
+
+        {% if searched %}
+            {% for meep in searched %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-1">
+                            {% if meep.user.profile.profile_image %}
+                            <img src="{{ meep.user.profile.profile_image.url }}" width=50 height=50 class="rounded-circle" alt="{{ meep.user.username }}">
+                            {% else %}
+                            <img src="{% static 'images/default_profile_pic.png' %}" width=50 height=50 class="rounded-circle" alt="{{ meep.user.username }}">
+                            {% endif %}
+                        </div>
+
+                        <div class="col-11">
+                            <p>{{ meep.body }}</p>
+                            <small class="text-muted">
+                                ({{ meep.created_at }}) By @{{ meep.user.username }}
+                                &nbsp;&nbsp;
+                                {{ meep.number_of_likes }}  
+
+                                {% if user in meep.likes.all %}
+                                <a href="{% url 'meep_like' meep.id %}">
+                                    <i class="fas fa-heart" style="color:red"></i>
+                                </a>
+                                {% else %}
+                                <a href="{% url 'meep_like' meep.id %}">
+                                    <i class="far fa-heart" style="color:red"></i>
+                                </a>
+                                {% endif %}
+                                &nbsp;&nbsp;
+                                <a href="{% url 'meep_show' meep.id %}">
+                                    <i class="fas fa-share" style="color:gray"></i>
+                                </a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                No Meeps found for "{{ search }}".
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+{% endblock %}

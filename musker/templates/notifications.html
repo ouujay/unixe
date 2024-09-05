@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="notifications-container">
+    <h2>Your Notifications</h2>
+    <ul class="notifications-list">
+        {% for notification in notifications %}
+            <li class="notification-card">
+                <a href="{% if notification.meep %}{% url 'show_meep' notification.meep.id %}{% elif notification.related_user %}{% url 'profile' notification.related_user.id %}{% else %}#{% endif %}">
+                    <div class="notification-content">
+                        <p>{{ notification.message }}</p>
+                        <small>{{ notification.created_at }}</small>
+                    </div>
+                </a>
+            </li>
+        {% empty %}
+            <p class="no-notifications">No notifications available.</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      function fetchNotifications() {
+          fetch("{% url 'fetch_notifications' %}", {
+              headers: {
+                  'X-Requested-With': 'XMLHttpRequest',
+              }
+          })
+          .then(response => response.json())
+          .then(data => {
+              const notificationsContainer = document.getElementById('notifications-container');
+              
+              // Clear existing notifications
+              notificationsContainer.innerHTML = '';
+  
+              // Loop through new notifications and append them to the container
+              data.notifications.forEach(notification => {
+                  const notificationElement = document.createElement('div');
+                  notificationElement.classList.add('notification-item');
+                  notificationElement.innerHTML = `
+                      <p>${notification.message}</p>
+                      <small>${notification.created_at}</small>
+                  `;
+                  notificationsContainer.appendChild(notificationElement);
+              });
+          });
+      }
+  
+      // Poll the server every 30 seconds for new notifications
+      setInterval(fetchNotifications, 30000);
+  
+      // Fetch notifications immediately on page load
+      fetchNotifications();
+  });
+  </script>
+  

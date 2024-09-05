@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="profile-page container">
+    <div class="profile-header d-flex">
+        <div class="profile-image">
+            {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="{{ profile.user.username }}" class="rounded-circle" width="150">
+            {% else %}
+            <img src="{% static 'images/default_profile_pic.png' %}" alt="{{ profile.user.username }}" class="rounded-circle" width="150">
+            {% endif %}
+        </div>
+        <div class="profile-details ml-4">
+            <h1>{{ profile.user.username }}</h1>
+            {% if profile.profile_bio %}
+            <p>{{ profile.profile_bio }}</p>
+            {% endif %}
+            
+            <!-- Social Links -->
+            <div class="social-links d-flex">
+                {% if profile.homepage_link %}
+                <a href="{{ profile.homepage_link }}" target="_blank"><i class="fas fa-link"></i> Website</a>
+                {% endif %}
+                {% if profile.facebook_link %}
+                <a href="{{ profile.facebook_link }}" target="_blank" class="ml-3"><i class="fab fa-facebook-f"></i> Facebook</a>
+                {% endif %}
+                {% if profile.instagram_link %}
+                <a href="{{ profile.instagram_link }}" target="_blank" class="ml-3"><i class="fab fa-instagram"></i> Instagram</a>
+                {% endif %}
+                {% if profile.linkedin_link %}
+                <a href="{{ profile.linkedin_link }}" target="_blank" class="ml-3"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                {% endif %}
+            </div>
+
+            <!-- Follower and Following Count with Clickable Modals -->
+            <div class="follower-following mt-3 d-flex">
+                <div class="followers mr-4" data-bs-toggle="modal" data-bs-target="#socialModal" style="cursor: pointer;">
+                    <span><strong>{{ profile.followed_by.count }}</strong> Followers</span>
+                </div>
+                {% if profile.user == request.user %}
+                <div class="following ml-4" data-bs-toggle="modal" data-bs-target="#socialModal" style="cursor: pointer;">
+                    <span><strong>{{ profile.follows.count }}</strong> Following</span>
+                </div>
+                {% else %}
+                <div class="following ml-4" style="cursor: default;">
+                    <span><strong>{{ profile.follows.count }}</strong> Following</span>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Follow/Unfollow Button -->
+            <div class="mt-3">
+                {% if profile.user != request.user %}
+                    {% if profile in user.profile.follows.all %}
+                    <form method="POST" action="{% url 'unfollow' profile.user.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-danger btn-block btn-follow" name="follow" value="unfollow" type="submit">
+                            Unfollow @{{ profile.user.username|lower }}
+                        </button>
+                    </form>
+                    {% else %}
+                    <form method="POST" action="{% url 'follow' profile.user.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-outline-success btn-block btn-follow" name="follow" value="follow" type="submit">
+                            Follow @{{ profile.user.username|lower }}
+                        </button>
+                    </form>
+                    {% endif %}
+
+                    <!-- Message Button -->
+                    <button class="btn btn-outline-primary btn-block mt-3" data-bs-toggle="modal" data-bs-target="#messageModal">
+                        Send Message
+                    </button>
+
+                {% else %}
+                    <a href="{% url 'update_user' %}" class="btn btn-outline-secondary btn-block btn-small mt-3">Update Profile</a>
+                    <a href="{% url 'change_password' %}" class="btn btn-outline-primary btn-block btn-small mt-3">Change Password</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Profile Content (e.g., Meeps) -->
+    <div class="profile-content mt-4">
+        {% if meeps %}
+        <h2> posts</h2>
+        {% for meep in meeps %}
+        {% include '_meep_card.html' %}  <!-- Use the reusable template for Meep display -->
+        {% endfor %}
+        {% else %}
+        <p>{{ profile.user.username }} has no meeps yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Social Modal (Followers and Following) -->
+<div class="modal fade" id="socialModal" tabindex="-1" aria-labelledby="socialModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="socialModalLabel">{{ profile.user.username }}'s Social Connections</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Tabs Navigation -->
+                <ul class="nav nav-tabs" id="socialTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="followers-tab" data-bs-toggle="tab" data-bs-target="#followers" type="button" role="tab" aria-controls="followers" aria-selected="true">Followers</button>
+                    </li>
+                    {% if profile.user == request.user %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="following-tab" data-bs-toggle="tab" data-bs-target="#following" type="button" role="tab" aria-controls="following" aria-selected="false">Following</button>
+                    </li>
+                    {% elif mutual_followers %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="mutuals-tab" data-bs-toggle="tab" data-bs-target="#mutuals" type="button" role="tab" aria-controls="mutuals" aria-selected="false">Mutuals</button>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <!-- Tabs Content -->
+                <div class="tab-content" id="socialTabContent">
+                    <!-- Followers Tab -->
+                    <div class="tab-pane fade show active" id="followers" role="tabpanel" aria-labelledby="followers-tab">
+                        <ul class="list-unstyled mt-3">
+                            {% for follower in profile.followed_by.all %}
+                            <li class="mb-2"><a href="{% url 'profile' follower.user.id %}">@{{ follower.user.username }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% if profile.user == request.user %}
+                    <!-- Following Tab -->
+                    <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">
+                        <ul class="list-unstyled mt-3">
+                            {% for following in profile.follows.all %}
+                            <li class="mb-2"><a href="{% url 'profile' following.user.id %}">@{{ following.user.username }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% elif mutual_followers %}
+                    <!-- Mutuals Tab -->
+                    <div class="tab-pane fade" id="mutuals" role="tabpanel" aria-labelledby="mutuals-tab">
+                        <ul class="list-unstyled mt-3">
+                            {% for mutual in mutual_followers %}
+                            <li class="mb-2"><a href="{% url 'profile' mutual.user.id %}">@{{ mutual.user.username }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Message Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="{% url 'send_message' profile.user.id %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Send a Message to {{ profile.user.username }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea name="message" class="form-control" rows="4" placeholder="Type your message..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    .followers, .following {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .followers:hover, .following:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: #007bff;
+    }
+</style>

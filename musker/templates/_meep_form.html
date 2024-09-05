@@ -1,0 +1,136 @@
+{% load static %}
+<div class="mb-3">
+    <div class="row meep-form">
+        <div class="col-2 meep-image">
+            <a href="{% url 'profile' user.id %}">
+                {% if user.profile.profile_image %}
+                <img src="{{ user.profile.profile_image.url }}" width=50 height=50 class="rounded-circle" alt="{{ user.username }}">
+                {% else %}
+                <img src="{% static 'images/default_profile_pic.png' %}" width=50 height=50 class="rounded-circle" alt="{{ user.username }}">
+                {% endif %}
+            </a>
+        </div>
+        <div class="col-10  meep-content">
+            <form method="POST" enctype="multipart/form-data" class="meep-form" id="meepForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea class="form-control sleek-textarea fixed-textarea" id="meepBody" name="body" rows="3" placeholder="{{ placeholder_text|default:'What\'s happening?' }}" style="color: #000;"></textarea>
+                </div>
+                <!-- Hidden file input fields -->
+                <input type="file" name="image" id="imageUpload" class="hidden-input" accept="image/*">
+                <input type="file" name="video" id="videoUpload" class="hidden-input" accept="video/*">
+
+                <!-- Preview Section -->
+                <div id="previewSection" class="mt-3"></div>
+
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <div class="icon-bar">
+                        <i class="fas fa-image" aria-hidden="true" id="triggerImageUpload"></i> <!-- Image Upload Icon -->
+                        <i class="fas fa-video" aria-hidden="true" id="triggerVideoUpload"></i> <!-- Video Upload Icon -->
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-post" id="submitButton">Post</button>
+                    <!-- Loader Spinner -->
+                    <div id="loader" class="spinner-border text-primary" role="status" style="display: none;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: fixed; bottom: 20px; right: 20px; display: none;">
+    <div class="toast-body">
+        <!-- Toast Message will go here -->
+    </div>
+</div>
+
+<!-- JavaScript to Trigger File Inputs, Handle Loader, and Preview -->
+<script>
+    function showToast(message, type) {
+        var toast = document.getElementById('toast');
+        toast.classList.add(type === 'success' ? 'bg-success' : 'bg-danger');
+        toast.querySelector('.toast-body').textContent = message;
+        toast.style.display = 'block';
+        
+        // Hide the toast after 3 seconds
+        setTimeout(function () {
+            toast.style.display = 'none';
+            toast.classList.remove('bg-success', 'bg-danger');  // Reset classes
+        }, 3000);
+    }
+
+    // Form submission handler
+    document.querySelector('.meep-form').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent form from submitting immediately
+        document.getElementById('submitButton').style.display = 'none'; // Hide submit button
+        document.getElementById('loader').style.display = 'inline-block'; // Show loader
+        showToast('Meep is being posted...', 'success');
+        
+
+        setTimeout(function() {
+            event.target.submit(); 
+        }, 500);
+    });
+
+    // Enter key submission handler
+    document.getElementById('meepBody').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            event.preventDefault(); // Prevent default Enter key behavior
+            document.getElementById('meepForm').submit(); // Submit the form
+        }
+    });
+
+    // Trigger image upload
+    document.getElementById('triggerImageUpload').addEventListener('click', function() {
+        document.getElementById('imageUpload').click();
+    });
+
+    // Trigger video upload
+    document.getElementById('triggerVideoUpload').addEventListener('click', function() {
+        document.getElementById('videoUpload').click();
+    });
+
+    // Preview function for image and video uploads
+    function previewFile(input, type) {
+        const previewSection = document.getElementById('previewSection');
+        previewSection.innerHTML = ''; // Clear any previous content
+
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                let previewElement;
+                if (type === 'image') {
+                    previewElement = document.createElement('img');
+                    previewElement.src = e.target.result;
+                    previewElement.style.maxWidth = '20%';
+                    previewElement.style.borderRadius = '8px';
+                } else if (type === 'video') {
+                    previewElement = document.createElement('video');
+                    previewElement.src = e.target.result;
+                    previewElement.controls = true;
+                    previewElement.style.maxWidth = '100%';
+                    previewElement.style.borderRadius = '8px';
+                }
+
+                previewSection.appendChild(previewElement);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    document.getElementById('imageUpload').addEventListener('change', function() {
+        previewFile(this, 'image');
+    });
+
+    document.getElementById('videoUpload').addEventListener('change', function() {
+        previewFile(this, 'video');
+    });
+</script>
+{% block extra_js %}
+<script src="{% static 'js/meep_form.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="chat-container">
+    <!-- Chat Header -->
+    <div class="chat-header">
+        <div class="profile-picture">
+            <img src="{% if other_user.profile.profile_image %}{{ other_user.profile.profile_image.url }}{% else %}{% static 'images/default_profile_pic.png' %}{% endif %}" alt="{{ other_user.username }}">
+        </div>
+        <div class="chat-info">
+            <h2>{{ other_user.username }}</h2>
+        </div>
+    </div>
+
+    <!-- Chat Messages -->
+    <div class="chat-messages" id="chat-messages">
+        {% for message in messages %}
+            <div class="message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+                <div class="message-content">
+                    <p>{{ message.body }}</p>
+                    <small>{{ message.timestamp|date:"H:i" }}</small>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Message Input -->
+    <div class="chat-input-container">
+        <form method="POST" id="chat-form" data-recipient-id="{{ other_user.id }}" enctype="multipart/form-data" class="w-100 d-flex align-items-center">
+            {% csrf_token %}
+            <textarea id="chat-message-input" name="message" placeholder="Type your message..." required></textarea>
+            <i id="triggerImageUpload" class="fas fa-image"></i> <!-- Image upload icon -->
+            <i id="triggerVideoUpload" class="fas fa-video"></i> <!-- Video upload icon -->
+            <input type="file" name="image" id="imageUpload" class="d-none" accept="image/*">
+            <input type="file" name="video" id="videoUpload" class="d-none" accept="video/*">
+            <button id="send-button" type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/conversation.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <h1>{{ meep.user.username }}'s Meep</h1>
+
+    <!-- Include the Meep Card -->
+    {% include '_meep_card.html' with meep=meep %}
+
+    <!-- Sorting Dropdown -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Replies</h2>
+        <form method="GET">
+            <select name="order_by" class="form-select" onchange="this.form.submit()">
+                <option value="latest" {% if order_by == 'latest' %}selected{% endif %}>Latest</option>
+                <option value="relevance" {% if order_by == 'relevance' %}selected{% endif %}>Relevance (Likes)</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- Include the Meep Form for Replies -->
+    {% if user.is_authenticated %}
+        {% include '_meep_form.html' %}
+    {% else %}
+    <p>You must be logged in to post a reply.</p>
+    {% endif %}
+
+    <!-- Replies Section -->
+    <ul class="list-group">
+        {% for reply in replies %}
+        <li class="list-group-item border-0">
+            <!-- Include the Meep Card for Replies -->
+            {% include '_meep_card.html' with meep=reply %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

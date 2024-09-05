@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="inbox-container">
+    <h2>Messages</h2>
+
+    <!-- Search bar -->
+    <div class="search-bar">
+        <form method="GET" action="{% url 'inbox' %}" id="search-form">
+            <input type="text" name="q" id="search-input" placeholder="Search Direct Messages" value="{{ request.GET.q }}">
+            <button type="submit" id="search-button">Search</button>
+        </form>
+    </div>
+
+    <!-- Conversations -->
+    <ul class="conversation-list">
+        {% if conversations %}
+            {% for conversation in conversations %}
+            <li class="conversation-item">
+                <a href="{% url 'conversation_view' conversation.other_user.id %}">
+                    <div class="profile-picture">
+                        <!-- Profile picture with fallback to default -->
+                        {% if conversation.other_user.profile.profile_image %}
+                            <img src="{{ conversation.other_user.profile.profile_image.url }}" class="profile-img" alt="{{ conversation.other_user.username }}">
+                        {% else %}
+                            <img src="{% static 'images/default_profile_pic.png' %}" class="profile-img" alt="{{ conversation.other_user.username }}">
+                        {% endif %}
+                    </div>
+                    <div class="conversation-details">
+                        <strong>{{ conversation.other_user.username }}</strong>
+                        <small>{{ conversation.last_message|truncatewords:10 }}</small>
+                    </div>
+                    {% if conversation.unread_count > 0 %}
+                        <span class="badge badge-danger">{{ conversation.unread_count }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        {% else %}
+            <p class="no-conversations">No conversations found.</p>
+        {% endif %}
+    </ul>
+</div>
+
+<!-- JavaScript for triggering search on Enter key -->
+<script>
+    document.getElementById('search-input').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();  // Prevent default form submission behavior
+            document.getElementById('search-form').submit();  // Submit the form manually
+        }
+    });
+</script>
+{% endblock %}

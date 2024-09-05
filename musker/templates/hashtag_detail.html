@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}  <!-- Make sure to load your custom filter -->
+{% block content %}
+
+<h2>#{{ hashtag.name }}</h2>
+
+{% if meeps %}
+<ul class="list-group">
+    {% for meep in meeps %}
+    <li class="list-group-item">
+        <div class="meep-card">
+            <div class="row">
+                <div class="col-1 meep-image">
+                    <a href="{% url 'profile' meep.user.id %}">
+                        {% if meep.user.profile.profile_image %}
+                        <img src="{{ meep.user.profile.profile_image.url }}" width=50 height=50 class="rounded-circle" alt="{{ meep.user.username }}">
+                        {% else %}
+                        <img src="{% static 'images/default_profile_pic.png' %}" width=50 height=50 class="rounded-circle" alt="{{ meep.user.username }}">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col-11 meep-content">
+                    <a href="{% url 'profile' meep.user.id %}" class="text-dark">
+                        <strong>@{{ meep.user.username }}</strong>
+                    </a>: {{ meep.body|linkify_hashtags }}  <!-- Apply your custom filter here -->
+                    <br/>
+                    <small class="text-muted">Posted at {{ meep.created_at }}</small>
+                    {% if meep.reply_to %}
+                    <br>
+                    <small>Replying to <a href="{% url 'show_meep' meep.reply_to.pk %}">@{{ meep.reply_to.user.username }}</a></small>
+                    {% endif %}
+                    <div class="mt-2">
+                        <span>
+                            <i class="fas fa-comment" aria-hidden="true"></i> {{ meep.replies.count }}
+                        </span>
+                        <span class="ml-4">
+                            {% if user in meep.likes.all %}
+                            <a href="{% url 'meep_like' meep.id %}">
+                                <i class="fas fa-heart" style="color:red"></i> {{ meep.likes.count }}
+                            </a>
+                            {% else %}
+                            <a href="{% url 'meep_like' meep.id %}">
+                                <i class="far fa-heart" style="color:red"></i> {{ meep.likes.count }}
+                            </a>
+                            {% endif %}
+                        </span>
+                        <a href="{% url 'meep_show' meep.id %}" class="ml-4">
+                            <i class="fas fa-share" style="color:gray"></i> View Thread
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No Meeps found for this hashtag.</p>
+{% endif %}
+
+{% endblock %}

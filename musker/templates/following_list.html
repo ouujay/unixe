@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>{{ profile_user.username }}'s Following</h2>
+<ul>
+    {% for following in following %}
+    <li>
+        <a href="{% url 'profile' following.id %}">
+            <img src="{% if following.profile.profile_image %}{{ following.profile.profile_image.url }}{% else %}{% static 'images/default_profile_pic.png' %}{% endif %}" alt="{{ following.username }}">
+            {{ following.username }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Replying to {{ original_meep.user.username }}</h2>
+<p>{{ original_meep.body }}</p>
+<small class="text-muted">{{ original_meep.created_at }}</small>
+
+<hr>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data" id="replyForm">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea class="form-control sleek-textarea" id="replyBody" name="body" rows="2" placeholder="Post your reply" aria-label="Reply text"></textarea>
+            </div>
+            <!-- Hidden file input fields -->
+            <input type="file" name="image" id="imageReplyUpload" class="hidden-input" accept="image/*">
+            <input type="file" name="video" id="videoReplyUpload" class="hidden-input" accept="video/*">
+
+            <!-- Preview Section -->
+            <div id="replyPreviewSection" class="mt-3"></div>
+
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <!-- Icons for file uploads -->
+                <div class="icon-bar">
+                    <i class="fas fa-image" id="triggerReplyImageUpload"></i> <!-- Image Upload Icon -->
+                    <i class="fas fa-video" id="triggerReplyVideoUpload"></i> <!-- Video Upload Icon -->
+                </div>
+                <button type="submit" class="btn btn-primary">Reply</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript to Trigger File Inputs and Handle Previews -->
+<script src="{% static 'js/form_validation.js' %}"></script> <!-- Include the form validation script -->
+<script>
+    document.getElementById('triggerReplyImageUpload').addEventListener('click', function() {
+        document.getElementById('imageReplyUpload').click();
+    });
+
+    document.getElementById('triggerReplyVideoUpload').addEventListener('click', function() {
+        document.getElementById('videoReplyUpload').click();
+    });
+
+    // Preview function for image and video uploads
+    function previewReplyFile(input, type) {
+        const replyPreviewSection = document.getElementById('replyPreviewSection');
+        replyPreviewSection.innerHTML = ''; // Clear any previous content
+
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                let previewElement;
+                if (type === 'image') {
+                    previewElement = document.createElement('img');
+                    previewElement.src = e.target.result;
+                    previewElement.style.maxWidth = '100%';
+                    previewElement.style.borderRadius = '8px';
+                } else if (type === 'video') {
+                    previewElement = document.createElement('video');
+                    previewElement.src = e.target.result;
+                    previewElement.controls = true;
+                    previewElement.style.maxWidth = '100%';
+                    previewElement.style.borderRadius = '8px';
+                }
+
+                replyPreviewSection.appendChild(previewElement);
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    document.getElementById('imageReplyUpload').addEventListener('change', function() {
+        previewReplyFile(this, 'image');
+    });
+
+    document.getElementById('videoReplyUpload').addEventListener('change', function() {
+        previewReplyFile(this, 'video');
+    });
+</script>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reply_to_meep.js' %}"></script>
+{% endblock %}

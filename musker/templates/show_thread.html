@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <!-- Original Tweet -->
+    <div class="card mb-3">
+        <div class="card-body">
+            <h2>{{ meep.user.username }}'s Meep</h2>
+            <p>{{ meep.body }}</p>
+            <small class="text-muted">Posted at {{ meep.created_at }}</small>
+        </div>
+    </div>
+
+    <!-- Replies Section -->
+    <h3>Replies</h3>
+    <ul class="list-group">
+        {% for reply in replies %}
+        <li class="list-group-item">
+            <strong>{{ reply.user.username }}</strong>: {{ reply.body }}
+            <small class="text-muted">{{ reply.created_at }}</small>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No replies yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
